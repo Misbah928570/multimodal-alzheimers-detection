@@ -1,0 +1,27 @@
+MRI–PET registration quality-check images. They help us see whether the MRI and PET scans of the same person line up correctly before we train your multimodal model.
+1. How to understand the images
+Each subject has three views, shown side by side.
+Axial view — horizontal slice
+A cross-section through the head, viewed from above or below. It shows the brain from a horizontal plane.
+
+Coronal view — front-facing slice
+Shows the brain as if you are looking at the person face-on, allowing us to compare the left and right sides.
+
+Sagittal view — side slice
+Shows the brain from the side, including its internal structures and outer contour.
+
+These are the intended anatomical views. However, your current montage script uses raw image-array indices without first standardizing the NIfTI orientations, so some views may be mislabeled or displayed in an unexpected orientation.
+2. What do the grayscale and orange/purple colors mean?
+Grayscale image = MRI
+MRI shows brain anatomy, including the shape of the brain and surrounding tissues.
+
+Colored overlay = FDG-PET
+FDG-PET reflects glucose uptake, which provides information about brain metabolic activity. In this particular color display, brighter orange/yellow generally indicates higher displayed PET signal than darker purple areas.
+
+The colored PET image is overlaid on the grayscale MRI so we can check whether PET activity is located in the corresponding anatomical regions.
+
+
+Step 4: Prepare the training dataset
+This script will create reduced volumes of size 64 × 64 × 48, normalize their intensities, and generate subject-level, stratified train/validation/test splits.
+The split will use a fixed random seed so that the same subjects remain assigned to the same set when you rerun the split code.
+
